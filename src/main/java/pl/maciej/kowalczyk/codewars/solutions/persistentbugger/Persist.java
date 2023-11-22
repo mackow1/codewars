@@ -14,8 +14,27 @@ For example (Input --> Output):
  */
 
 class Persist {
+
     public static int persistence(long n) {
 
-        return 0;
+        int counter = 0;
+        while (n >= 10) {
+            n = convertAndMultiply(n);
+            counter++;
+        }
+
+        return counter;
+    }
+
+    private static long convertAndMultiply(long n) {
+        String nToString = String.valueOf(n);
+        long result = 1;
+
+        for (int i = 0; i < nToString.length(); i++) {
+            int temp = Integer.parseInt(String.valueOf(nToString.charAt(i)));
+            result *= temp;
+        }
+
+        return result;
     }
 }
