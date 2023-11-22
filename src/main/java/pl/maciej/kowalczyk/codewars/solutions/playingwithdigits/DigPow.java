@@ -27,7 +27,27 @@ public class DigPow {
 
     public static long digPow(int n, int p) {
 
+        long allDigitsToPower = allDigitsToPower(n, p);
+
+        if (allDigitsToPower % n == 0) {
+            return allDigitsToPower / n;
+        }
+
         return -1;
     }
 
+    private static long allDigitsToPower(int n, int p) {
+
+        String nToString = String.valueOf(n);
+        long result = 0;
+
+        for (int i = 0; i < nToString.length(); i++) {
+            String s = String.valueOf(nToString.charAt(i));
+            int temp = Integer.parseInt(s);
+            result += Math.pow(temp, p);
+            p++;
+        }
+
+        return result;
+    }
 }
