@@ -15,9 +15,17 @@ You can find some examples in the test fixtures.
  */
 
 public class HumanReadableTime {
-  public static String makeReadable(int seconds) {
-    String result = "";
+    public static String makeReadable(int seconds) {
+        String result = "";
 
-    return result;
-  }
+        int hours = seconds / 3600;
+        int minutes = (seconds - hours * 3600) / 60;
+        seconds = seconds % 60;
+
+        result += hours >= 10 ? "" + hours : "0" + hours;
+        result += minutes >= 10 ? ":" + minutes : ":0" + minutes;
+        result += seconds >= 10 ? ":" + seconds : ":0" + seconds;
+
+        return result;
+    }
 }
