@@ -19,6 +19,7 @@ public class XbonacciTest {
         variabonacci = null;
     }
 
+
     private double precision = 1e-10;
 
     @Test

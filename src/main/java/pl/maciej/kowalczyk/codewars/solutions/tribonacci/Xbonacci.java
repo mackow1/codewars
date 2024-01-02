@@ -30,10 +30,39 @@ If you enjoyed this kata more advanced and generalized version of it can be foun
 [Personal thanks to Professor Jim Fowler on Coursera for his awesome classes that I really recommend to any math enthusiast and for showing me this mathematical curiosity too with his usual contagious passion :)]
  */
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Xbonacci {
 
     public double[] tribonacci(double[] s, int n) {
 
-        return new double[1];
+        // wymaganie w zadaniu
+        if (n == 0) {
+            return new double[0];
+        }
+
+        List<Double> list = new ArrayList<>();
+        Arrays.stream(s).forEach(list::add);
+
+        if (n < s.length) {
+            List<Double> collected = list.stream()
+                    .filter(p -> list.indexOf(p) < n)
+                    .collect(Collectors.toList());
+            return collected.stream().mapToDouble(Double::doubleValue).toArray();
+        }
+
+        while (list.size() < n) {
+            double sum = list.stream()
+                    .skip(Math.max(0, list.size() - 3))
+                    .mapToDouble(Double::doubleValue)
+                    .sum();
+
+            list.add(sum);
+        }
+
+        return list.stream().mapToDouble(Double::doubleValue).toArray();
     }
 }
