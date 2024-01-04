@@ -33,13 +33,11 @@ If you enjoyed this kata more advanced and generalized version of it can be foun
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Xbonacci {
 
     public double[] tribonacci(double[] s, int n) {
 
-        // wymaganie w zadaniu
         if (n == 0) {
             return new double[0];
         }
@@ -48,19 +46,12 @@ public class Xbonacci {
         Arrays.stream(s).forEach(list::add);
 
         if (n < s.length) {
-            List<Double> collected = list.stream()
-                    .filter(p -> list.indexOf(p) < n)
-                    .collect(Collectors.toList());
-            return collected.stream().mapToDouble(Double::doubleValue).toArray();
+            return Arrays.copyOf(s, n);
         }
 
-        while (list.size() < n) {
-            double sum = list.stream()
-                    .skip(Math.max(0, list.size() - 3))
-                    .mapToDouble(Double::doubleValue)
-                    .sum();
-
-            list.add(sum);
+        for (int i = 3; i < n; i++) {
+            double next = list.get(i-3) + list.get(i-2) + list.get(i-1);
+            list.add(next);
         }
 
         return list.stream().mapToDouble(Double::doubleValue).toArray();
