@@ -39,7 +39,7 @@ public class WeightSort {
                 .collect(Collectors.joining(" "));
 
         LOGGER.info("orderWeight(...) = " + result);
-        return result.trim();
+        return result;
     }
 
     private static int splitAndAdd(String numberAsString) {
