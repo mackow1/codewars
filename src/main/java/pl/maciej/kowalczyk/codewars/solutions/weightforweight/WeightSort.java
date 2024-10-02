@@ -22,7 +22,9 @@ When two numbers have the same "weight", let us class them as if they were strin
 All numbers in the list are positive numbers and the list can be empty.
  */
 
+import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class WeightSort {
 
@@ -30,15 +32,26 @@ public class WeightSort {
 
     public static String orderWeight(String string) {
         LOGGER.info("orderWeight(" + string + ")");
-        String result = "";
 
-        String[] s = string.split(" ");
-
-        for (String str : s) {
-            str.trim();
-        }
+        String result = Arrays.stream(string.split(" "))
+                .sorted(Comparator.comparingInt(WeightSort::splitAndAdd)
+                        .thenComparing(Comparator.naturalOrder()))
+                .collect(Collectors.joining(" "));
 
         LOGGER.info("orderWeight(...) = " + result);
-        return result;
+        return result.trim();
+    }
+
+    private static int splitAndAdd(String numberAsString) {
+        LOGGER.info("splitAndAdd(" + numberAsString + ")");
+
+        int sum = 0;
+
+        for (char c : numberAsString.toCharArray()) {
+            sum += Character.getNumericValue(c);
+        }
+
+        LOGGER.info("splitAndAdd(...) = " + sum);
+        return sum;
     }
 }
